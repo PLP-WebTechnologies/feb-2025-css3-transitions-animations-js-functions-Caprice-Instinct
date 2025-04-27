@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Animation with localStorage</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        /* Button with hover animation */
+        .animate-btn {
+            padding: 15px 30px;
+            font-size: 16px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .animate-btn:hover {
+            background-color: #2980b9;
+            transform: scale(1.1);
+            box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Initial state of the animated element */
+        .animate-text {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+
+        /* Animation for fadeIn effect */
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Apply the animation dynamically */
+        .fade-in {
+            animation: fadeIn 1s forwards;
+        }
+    </style>
+</head>
+<body>
+
+    <button class="animate-btn" onclick="triggerAnimation()">Click Me to Animate Text</button>
+
+    <div id="animation-target" class="animate-text">
+        <p>This text will appear with a fade-in animation when you click the button!</p>
+    </div>
+
+    <script>
+        function triggerAnimation() {
+            const targetElement = document.getElementById('animation-target');
+            
+            // Reset the animation to trigger it again if clicked multiple times
+            targetElement.style.animation = 'none';
+            targetElement.offsetHeight; // Trigger a reflow to reset the animation
+            targetElement.style.animation = 'fadeIn 1s forwards';
+
+            // Store that the button was clicked
+            localStorage.setItem('buttonClicked', true);
+        }
+    </script>
+
+</body>
+</html>
